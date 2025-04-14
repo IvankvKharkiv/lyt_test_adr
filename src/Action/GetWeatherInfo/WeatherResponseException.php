@@ -1,5 +1,5 @@
 <?php
 
-namespace App\Exception;
+namespace App\Action\GetWeatherInfo;
 
 class WeatherResponseException extends \Exception {}

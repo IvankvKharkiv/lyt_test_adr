@@ -1,4 +1,5 @@
 Test Project <br>
+This is attempt to implement ADR (Action–domain–responder) architecture <br>
 To start the project: docker compose up -d --build <br>
 To enter the container: docker compose exec php bash <br>
 To install composer dependencies:docker compose exec php composer install <br>

@@ -1,7 +1,10 @@
 <?php
 
-namespace App\Dto;
+namespace App\Action\GetWeatherInfo;
 
+use Symfony\Component\DependencyInjection\Attribute\When;
+
+#[When(false)]
 class WeatherResultDto
 {
     public function __construct(

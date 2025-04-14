@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Service;
+namespace App\Action\GetWeatherInfo;
 
 use App\Client\WeatherClient;
-use App\Dto\WeatherResultDto;
-use App\Exception\WeatherArrayDataException;
 use Psr\Log\LoggerInterface;
 
-class WeatherService
+class WeatherInfo
 {
     public function __construct(
         private WeatherClient $weatherClient,

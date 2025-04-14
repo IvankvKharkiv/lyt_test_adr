@@ -2,7 +2,7 @@
 
 namespace App\Client;
 
-use App\Exception\WeatherResponseException;
+use App\Action\GetWeatherInfo\WeatherResponseException;
 use Symfony\Component\HttpClient\HttpOptions;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 

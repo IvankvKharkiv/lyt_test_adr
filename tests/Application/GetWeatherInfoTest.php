@@ -2,21 +2,21 @@
 
 namespace App\Tests\Application;
 
-use App\Dto\WeatherResultDto;
-use App\Exception\WeatherResponseException;
-use App\Service\WeatherService;
+use App\Action\GetWeatherInfo\WeatherInfo;
+use App\Action\GetWeatherInfo\WeatherResponseException;
+use App\Action\GetWeatherInfo\WeatherResultDto;
 use PHPUnit\Framework\Attributes\Test;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use function PHPUnit\Framework\once;
 
-final class WeatherControllerTest extends WebTestCase
+final class GetWeatherInfoTest extends WebTestCase
 {
     #[Test]
     public function itShouldShowWeatherForMadrid(): void
     {
         // Arrange
         $client = static::createClient();
-        $weatherServiceMock = $this->createMock(WeatherService::class);
+        $weatherServiceMock = $this->createMock(WeatherInfo::class);
         $weatherServiceMock->expects(once())
             ->method('getWeather')
             ->willReturn(new WeatherResultDto(
@@ -28,10 +28,10 @@ final class WeatherControllerTest extends WebTestCase
                 23,
                 new \DateTime('2020-01-01T00:00:00'),
             ));
-        self::getContainer()->set('App\Service\WeatherService', $weatherServiceMock);
+        self::getContainer()->set('App\Action\GetWeatherInfo\WeatherInfo', $weatherServiceMock);
 
         // Act
-        $crawler = $client->request('GET', 'https://nginx:8080/weather?city=Madrid');
+        $crawler = $client->request('GET', 'https://nginx:8080/get-weather?city=Madrid');
 
         // Assert
         self::assertStringContainsString('You selected: Madrid', $crawler->html());
@@ -43,15 +43,15 @@ final class WeatherControllerTest extends WebTestCase
         // Arrange
         $client = static::createClient();
 
-        $weatherServiceMock = $this->createMock(WeatherService::class);
+        $weatherServiceMock = $this->createMock(WeatherInfo::class);
         $weatherServiceMock->expects(once())
             ->method('getWeather')
             ->willThrowException(new WeatherResponseException());
 
-        self::getContainer()->set('App\Service\WeatherService', $weatherServiceMock);
+        self::getContainer()->set('App\Action\GetWeatherInfo\WeatherInfo', $weatherServiceMock);
 
         // Act
-        $crawler = $client->request('GET', 'https://nginx:8080/weather?city=ErrorCity');
+        $crawler = $client->request('GET', 'https://nginx:8080/get-weather?city=ErrorCity');
 
         // Assert
         self::assertStringContainsString('Something went wrong please contact the administrator.', $crawler->html());

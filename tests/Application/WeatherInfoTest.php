@@ -2,17 +2,17 @@
 
 namespace App\Tests\Application;
 
-use App\Dto\WeatherResultDto;
-use App\Exception\WeatherArrayDataException;
-use App\Exception\WeatherResponseException;
-use App\Service\WeatherService;
+use App\Action\GetWeatherInfo\WeatherArrayDataException;
+use App\Action\GetWeatherInfo\WeatherInfo;
+use App\Action\GetWeatherInfo\WeatherResponseException;
+use App\Action\GetWeatherInfo\WeatherResultDto;
 use PHPUnit\Framework\Attributes\Test;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\HttpClient\TraceableHttpClient;
 
-final class WeatherServiceTest extends KernelTestCase
+final class WeatherInfoTest extends KernelTestCase
 {
     #[Test]
     public function itShouldReturnWeatherDto(): void
@@ -49,7 +49,7 @@ final class WeatherServiceTest extends KernelTestCase
 
         self::getContainer()->set('Symfony\Contracts\HttpClient\HttpClientInterface', new TraceableHttpClient($httpClient));
 
-        $weatherService = self::getContainer()->get(WeatherService::class);
+        $weatherService = self::getContainer()->get(WeatherInfo::class);
 
         // Act
         $weatherDto = $weatherService->getWeather('Madrid');
@@ -79,7 +79,7 @@ final class WeatherServiceTest extends KernelTestCase
 
         self::getContainer()->set('Symfony\Contracts\HttpClient\HttpClientInterface', new TraceableHttpClient($httpClient));
 
-        $weatherService = self::getContainer()->get(WeatherService::class);
+        $weatherService = self::getContainer()->get(WeatherInfo::class);
 
         // Act
         $this->expectException(WeatherResponseException::class);
@@ -108,7 +108,7 @@ final class WeatherServiceTest extends KernelTestCase
 
         self::getContainer()->set('Symfony\Contracts\HttpClient\HttpClientInterface', new TraceableHttpClient($httpClient));
 
-        $weatherService = self::getContainer()->get(WeatherService::class);
+        $weatherService = self::getContainer()->get(WeatherInfo::class);
 
         // Act
         $this->expectException(WeatherResponseException::class);
@@ -137,7 +137,7 @@ final class WeatherServiceTest extends KernelTestCase
 
         self::getContainer()->set('Symfony\Contracts\HttpClient\HttpClientInterface', new TraceableHttpClient($httpClient));
 
-        $weatherService = self::getContainer()->get(WeatherService::class);
+        $weatherService = self::getContainer()->get(WeatherInfo::class);
 
         // Act
         $this->expectException(WeatherArrayDataException::class);
