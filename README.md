@@ -3,7 +3,7 @@ This is attempt to implement ADR (Action–domain–responder) architecture <br>
 To start the project: docker compose up -d --build <br>
 To enter the container: docker compose exec php bash <br>
 To install composer dependencies:docker compose exec php composer install <br>
-To see the main page: http://localhost:8080/weather <br>
+To see the main page: http://localhost:8080/get-weather <br>
 Choose the city and submit. <br>
 To run tests: docker compose exec php vendor/bin/phpunit tests
 
